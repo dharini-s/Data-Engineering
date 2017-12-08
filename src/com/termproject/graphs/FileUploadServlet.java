@@ -1,8 +1,6 @@
 package com.termproject.graphs;
 
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +9,6 @@ import javax.servlet.http.*;
 @WebServlet(name = "FileUploadServlet", urlPatterns = {"/upload"})
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
-    private final static Logger LOGGER =
-            Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
     protected void doPost(HttpServletRequest request,
                                   HttpServletResponse response)
@@ -62,8 +58,6 @@ public class FileUploadServlet extends HttpServlet {
     }
 
     private String getFileName(final Part part) {
-        final String partHeader = part.getHeader("content-disposition");
-        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
                 return content.substring(

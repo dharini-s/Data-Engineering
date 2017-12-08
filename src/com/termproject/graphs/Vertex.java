@@ -27,11 +27,6 @@ public class Vertex<T> {
         this.id = value;
     }
 
-//    //Overloaded constructor
-//    public Vertex(int value) {
-//        this.id = value;
-//    }
-
     public int getId() {
         return id;
     }
@@ -44,9 +39,6 @@ public class Vertex<T> {
         return adjList;
     }
 
-//    public void setAdjList(List<Vertex<T>> adjList) {
-//        this.adjList = adjList;
-//    }
 
     public void addAdjacentVertex(Edge<T> e, Vertex<T> v){
         edges.add(e);

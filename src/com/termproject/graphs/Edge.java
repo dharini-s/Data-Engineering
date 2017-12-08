@@ -33,21 +33,9 @@ public class Edge<T> {
         this.isDirected = isDirected;
     }
 
-//    Vertex<T> getSrc(){
-//        return src;
-//    }
-//
-//    Vertex<T> getDest(){
-//        return dest;
-//    }
-//
     int getWeight(){
         return weight;
     }
-//
-//    public boolean isDirected(){
-//        return isDirected;
-//    }
 
     @Override
     public String toString() {

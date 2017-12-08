@@ -2,7 +2,6 @@ package com.termproject.graphs;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,15 +21,14 @@ public class GraphRunner extends HttpServlet {
         String csvFile = request.getParameter("fileName");
         String filePath = request.getParameter("filePath");
         String keyStr = request.getParameter("key");
+        String variation = request.getParameter("variation");
+
         Integer key = null;
         if(keyStr != null)  {
             key = Integer.parseInt(keyStr);
         }
 
-        String variation = request.getParameter("variation");
-
         BufferedReader br = null;
-//        String rows[] = csvFile.split(System.getProperty("line.separator"));
         String line = "";
         String cvsSplitBy = ",";
         List<int[]> edges = new ArrayList<>();
@@ -45,25 +43,28 @@ public class GraphRunner extends HttpServlet {
                         Integer.parseInt(field[1]),
                         Integer.parseInt(field[2])};
                 edges.add(fields);
-                System.out.println("Data is: " + field[0] + " " + field[1] + " " + field[2]);
             }
 
             String res = processData(edges, variation, key);
             if(res.equals("false")) {
-                String message="[\"Not Hamiltonian or does not satisfy the variation conditions\"]";
-                request.setAttribute("message", message);
-                request.getRequestDispatcher("/Login.jsp").forward(request, response);
-//                response.setContentType("application/text");
-//                response.getWriter().write();
+                String message="Not Hamiltonian or does not satisfy the variation conditions";
+                response.setContentType("application/text");
+                response.getWriter().write(message);
+                return;
             }
-            System.out.println("Sending response");
-            response.setContentType("application/json");
-            response.getWriter().write(res);
-
+            else    {
+                System.out.println("Sending response");
+                response.setContentType("application/json");
+                response.getWriter().write(res);
+            }
         } catch (NumberFormatException e) {
             System.out.println("Incorrect input format!");
+            response.setContentType("application/text");
+            response.getWriter().write("Incorrect input format!");
             e.printStackTrace();
         } catch (IOException e) {
+            response.setContentType("application/text");
+            response.getWriter().write("File I/O error!");
             e.printStackTrace();
         }
     }
@@ -80,6 +81,7 @@ public class GraphRunner extends HttpServlet {
         int degree = 1;
         int weightLimit = 1;
         System.out.println("Variation is" + variation);
+        System.out.println("Key is" + key);
 
         if(key != null) {
             if(key == 1)    {

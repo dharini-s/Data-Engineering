@@ -7,8 +7,8 @@
     <script src="/javascript/angular-vis.js"></script>
     <link href="css/vis.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.3.0/vis.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap-3.3.7-dist/js/bootstrap.min.js">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.js">
     <style>
         .content {
             max-height: 1200px;
@@ -49,7 +49,7 @@
         }
 
         .main {
-            margin-left: 200px; /* Same as the width of the sidenav */
+            margin-left: 200px;
         }
 
         @media screen and (max-height: 450px) {
@@ -65,54 +65,57 @@
 </head>
 <body ng-controller="MainCtrl">
 <div class="sidenav">
-    <a href="#" ng-click="setVariation1()">Variation 1</a>
-    <a href="#" ng-click="setVariation2()">Variation 2</a>
-    <a href="#" ng-click="setVariation3()">Variation 3</a>
+    <a ng-click="setVariation1()">Variation 1</a>
+    <a ng-click="setVariation2()">Variation 2</a>
+    <a ng-click="setVariation3()">Variation 3</a>
 </div>
 <div class="main">
-<h2>{{title}}</h2>
-Upload graph data in the following format:<br>
-<pre>source node, destination node, label
+    <h2>{{title}}</h2>
+    Upload graph data in the following format:<br>
+    <pre>source node, destination node, label
 Eg.
 from, to, label
 1, 2, 12
 3, 1, 3
 4, 2, 5
 </pre>
-<br>
-<form method="POST" action="upload" enctype="multipart/form-data">
-    File:
-    <input class="btn btn-default btn-file" type="file" name="file" id="file"/> <br/>
-    Destination:
-    <input type="text" value="c://tmp" name="destination"/>
-    </br>
-    <input type="submit" class="btn btn-primary" value="Upload" name="upload" id="upload"/>
-</form>
-<br>
-<br>
-<form>
-    File name:
-    <input type="text" name="file" id="file1" ng-model="fileName"/> <br/>
-    Destination:
-    <input type="text" value="c://tmp" name="destination" ng-model="filePath"/>
-    </br>
-    Variation data:
-    <input type="text" ng-model="variation"/> <br/>
-    <input type="submit" class="btn btn-primary" ng-click="sendFileData()" value="Submit" name="upload"/>
+    <br>
+    <form method="POST" action="upload" enctype="multipart/form-data">
+        File:
+        <input class="btn btn-default btn-file" type="file" name="file" id="file"/> <br/>
+        Destination:
+        <input type="text" value="c://tmp" name="destination"/>
+        </br>
+        <input type="submit" class="btn btn-primary" value="Upload" name="upload" id="upload"/>
+    </form>
+    <br>
+    <br>
+    <form>
+        File name:
+        <input type="text" name="file" id="file1" ng-model="fileName"/> <br/>
+        Destination:
+        <input type="text" value="c://tmp" name="destination" ng-model="filePath"/>
+        </br>
+        Variation data:
+        <input type="text" ng-model="variation"/> <br/>
+        <input type="submit" class="btn btn-primary" ng-click="sendFileData()" value="Submit" name="upload"/>
 
-</form>
+    </form>
     Instructions:
     <br> For normal condition, hit Submit
-    <br> For Variation 1, choose a suitable file and click Variation 1 on the navbaar
-    <br> For Variation 2, choose a suitable file, enter variation data textbox and click Variation 2 on the navbar
-    <br> For Variation 3, choose a suitable file, enter variation data textbox and click Variation 3 on the navbar
-<div ng-if="result1" class="content" ng-init="loadGraph()">
-    <vis-network data="data" options="options"></vis-network>
-</div>
+    <br> For Variation 1(directionality), choose a suitable file and click Variation 1 on the navbaar
+    <br> For Variation 2(degree limit), choose a suitable file, enter variation data textbox and click Variation 2 on
+    the navbar
+    <br> For Variation 3(weight limit), choose a suitable file, enter variation data textbox and click Variation 3 on
+    the navbar
+    <div ng-if="result1" class="content" ng-init="loadGraph()">
+        <vis-network data="data" options="options"></vis-network>
+    </div>
+    <br>
     {{message}}
+    <br>
+    {{result1}}
 </div>
 </body>
 
 </html>
-
-

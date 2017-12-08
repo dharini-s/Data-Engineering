@@ -11,21 +11,10 @@ public class Graph<T> {
     private List<Edge<T>> edges;
     private boolean isDirected = false;
 
-//    public void setVertices(List<Vertex<T>> vertices) {
-//        this.vertices = vertices;
-//    }
-
     public Collection<Vertex<T>> getVertices() {
         return vertices.values();
     }
 
-//    public void setEdges(List<Edge<T>> edges) {
-//        this.edges = edges;
-//    }
-//
-//    public List<Edge<T>> getEdges() {
-//        return edges;
-//    }
 
     public Graph(boolean isDirected) {
         edges = new ArrayList<>();
